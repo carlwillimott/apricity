@@ -1,0 +1,22 @@
+{
+  "name": "apricity",
+  "version": "1.0.0",
+  "description": "A simple library for working with crontabs.",
+  "main": "lib/apricity.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "babel-node --presets es2015 run.js",
+    "combined": "npm run build && npm run test"
+  },
+  "author": "Carl Willimott",
+  "license": "MIT",
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.10.1",
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "jasmine": "^2.4.1",
+    "webpack": "^1.13.1"
+  }
+}
