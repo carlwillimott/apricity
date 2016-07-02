@@ -64,23 +64,12 @@ export default class Apricity {
             min: null, hour: null, day: null, month: null, week: null
         };
 
-        // For each part we can skip already if we have a star.
         this._rules.forEach((rule) => {
-            if (master.min !== '*') {
-                master.min = this._calculateMin(master.min, rule.min);
-            }
-            if (master.hour !== '*') {
-                master.min = this._calculateHour(master.hour, rule.hour);
-            }
-            if (master.day !== '*') {
-                master.min = this._calculateDay(master.day, rule.day);
-            }
-            if (master.month !== '*') {
-                master.min = this._calculateMonth(master.month, rule.month);
-            }
-            if (master.week !== '*') {
-                master.min = this._calculateWeek(master.week, rule.week);
-            }
+            master.min = this._calculateMin(master.min, rule.min);
+            master.hour = this._calculateHour(master.hour, rule.hour);
+            master.day = this._calculateDay(master.day, rule.day);
+            master.month = this._calculateMonth(master.month, rule.month);
+            master.week = this._calculateWeek(master.week, rule.week);
         });
 
         this._master = master;
@@ -107,24 +96,63 @@ export default class Apricity {
         }
     }
 
-    _calculateMin(current, new) {
+    _calculateMin(current, latest) {
 
     }
 
-    _calculateHour(current, new) {
+    _calculateHour(current, latest) {
 
     }
 
-    _calculateDay(current, new) {
+    _calculateDay(current, latest) {
 
     }
 
-    _calculateMonth(current, new) {
+    _calculateMonth(current, latest) {
 
     }
 
-    _calculateWeek(current, new) {
+    _calculateWeek(current, latest) {
+        // 1 - Mon, 2 - Tue, 3 - Wed, 4 - Thu, 5 - Fri, 6 - Sat, 7 - Sun
+        let week = current || {
+            "1": false, "2": false, "3": false, "4": false,
+            "5": false, "6": false, "7": false
+        };
 
+        if (latest.indexOf(",")) {
+            week = this._seriesMatcher(latest, week);
+        }
+
+        if (latest.indexOf("-")) {
+            week = this._rangeMatcher(latest, week);
+        }
+
+        // @todo - Remove after testing.
+        this._master = {week: week};
+        return week;
+
+    }
+
+    _seriesMatcher(latest, target) {
+        let pieces = latest.split(",");
+        pieces.forEach((piece) => {
+            if (target.hasOwnProperty(piece)) {
+                target[piece] = true;
+            }
+        });
+        return target;
+    }
+
+    _rangeMatcher(latest, target) {
+        let pieces = latest.split("-");
+        let start = pieces[0];
+        let end = pieces[1];
+        for (let i = start; i <= end; i++) {
+            if (target.hasOwnProperty(i)) {
+                target[i] = true;
+            }
+        }
+        return target;
     }
 
 }

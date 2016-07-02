@@ -7,7 +7,7 @@ describe("apricitySpec", () => {
         expect(() => c1.addRule()).toThrow();
         expect(() => c1.addRule("")).toThrow();
 
-        // Should test if not string also.
+        // @todo - Should test if not string also.
 
     });
 

@@ -6,9 +6,7 @@
 		<script>
 			window.onload = function() {
 				var cron = new Apricity("* * * * *");
-				cron.addRule("* * * * *");
-				console.log(cron.getRule(0));
-				console.log(cron.getRule(1));
+				cron._calculateWeek(false, "1-6");
 				console.log(cron.getMaster());
 			}
 		</script>
