@@ -1,6 +1,6 @@
 # Apricity
 
-## A simple library for working with crontabs.
+A simple library for working with crontabs.
 
 Coming soon...
 

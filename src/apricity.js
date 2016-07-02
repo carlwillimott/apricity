@@ -64,6 +64,25 @@ export default class Apricity {
             min: null, hour: null, day: null, month: null, week: null
         };
 
+        // For each part we can skip already if we have a star.
+        this._rules.forEach((rule) => {
+            if (master.min !== '*') {
+                master.min = this._calculateMin(master.min, rule.min);
+            }
+            if (master.hour !== '*') {
+                master.min = this._calculateHour(master.hour, rule.hour);
+            }
+            if (master.day !== '*') {
+                master.min = this._calculateDay(master.day, rule.day);
+            }
+            if (master.month !== '*') {
+                master.min = this._calculateMonth(master.month, rule.month);
+            }
+            if (master.week !== '*') {
+                master.min = this._calculateWeek(master.week, rule.week);
+            }
+        });
+
         this._master = master;
 
     }
@@ -86,6 +105,26 @@ export default class Apricity {
             month: res[3],
             week: res[4]
         }
+    }
+
+    _calculateMin(current, new) {
+
+    }
+
+    _calculateHour(current, new) {
+
+    }
+
+    _calculateDay(current, new) {
+
+    }
+
+    _calculateMonth(current, new) {
+
+    }
+
+    _calculateWeek(current, new) {
+
     }
 
 }
