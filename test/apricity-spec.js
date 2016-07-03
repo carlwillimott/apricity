@@ -1,4 +1,4 @@
-import Apricity from '../lib/apricity.js';
+import Apricity from '../lib/apricity';
 
 describe("apricitySpec", () => {
 

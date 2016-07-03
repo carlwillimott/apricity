@@ -20,6 +20,7 @@ export default class Apricity {
             let processed = this._stringPreprocess(rule);
             let newId = this._id++;
             processed.id = newId;
+            processed.raw = rule;
             result = newId;
             this._rules.push(processed);
         }
@@ -119,18 +120,27 @@ export default class Apricity {
             "5": false, "6": false, "7": false
         };
 
-        if (latest.indexOf(",")) {
+        if (latest.indexOf("*") > -1) {
+            week = this._starMatcher(latest, week);
+        }
+
+        if (latest.indexOf(",") > -1) {
             week = this._seriesMatcher(latest, week);
         }
 
-        if (latest.indexOf("-")) {
+        if (latest.indexOf("-") > -1) {
             week = this._rangeMatcher(latest, week);
         }
 
-        // @todo - Remove after testing.
-        this._master = {week: week};
         return week;
 
+    }
+
+    _starMatcher(latest, target) {
+        for (let i = 1; i <= Object.keys(target).length; i++) {
+            target[i] = true;
+        }
+        return target;
     }
 
     _seriesMatcher(latest, target) {

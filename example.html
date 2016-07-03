@@ -5,8 +5,10 @@
 		<script src="lib/apricity.js"></script>
 		<script>
 			window.onload = function() {
-				var cron = new Apricity("* * * * *");
-				cron._calculateWeek(false, "1-6");
+				var cron = new Apricity("* * * * 1-2");
+				cron.addRule("* * * * 6-7");
+                cron.addRule("* * * * 3,5");
+                console.log(cron.getRule(2));
 				console.log(cron.getMaster());
 			}
 		</script>
