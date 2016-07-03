@@ -11,6 +11,9 @@ export default class Apricity {
         }
     }
 
+    /**
+     * Simple add method (this can also be called in the constructor).
+    **/
     addRule(rule) {
         if (!rule) {
             throw Error("No rule entered.");
@@ -32,6 +35,9 @@ export default class Apricity {
 
     }
 
+    /**
+     * Fetch a rule from the given id.
+    **/
     getRule(id) {
         let result = false;
         this._rules.forEach((rule) => {
@@ -51,14 +57,14 @@ export default class Apricity {
     }
 
     /**
-    * Fetch a series of dates for the next executions.
+     * Fetch a series of dates for the next executions.
     **/
     getNext(count) {
         count = count || 1;
     }
 
     /**
-    * Scan each rule to build a master based on actual coverage.
+     * Scan each rule to build a master based on actual coverage.
     **/
     _defineMasterRule() {
 
@@ -67,11 +73,11 @@ export default class Apricity {
         };
 
         this._rules.forEach((rule) => {
-            master.min = this._calculateMin(master.min, rule.min);
-            master.hour = this._calculateHour(master.hour, rule.hour);
-            master.day = this._calculateDay(master.day, rule.day);
-            master.month = this._calculateMonth(master.month, rule.month);
-            master.week = this._calculateWeek(master.week, rule.week);
+            master.min = this._calculateMin(master.min, rule.data.min);
+            master.hour = this._calculateHour(master.hour, rule.data.hour);
+            master.day = this._calculateDay(master.day, rule.data.day);
+            master.month = this._calculateMonth(master.month, rule.data.month);
+            master.week = this._calculateWeek(master.week, rule.data.week);
         });
 
         this._master = master;
@@ -79,7 +85,7 @@ export default class Apricity {
     }
 
     /**
-    * We need to manipulate the string into an object before continuing.
+     * We need to manipulate the string into an object before continuing.
     **/
     _stringPreprocess(rule) {
 
@@ -90,11 +96,13 @@ export default class Apricity {
         }
 
         return {
-            min: res[0],
-            hour: res[1],
-            day:  res[2],
-            month: res[3],
-            week: res[4]
+            data: {
+                min: res[0],
+                hour: res[1],
+                day:  res[2],
+                month: res[3],
+                week: res[4]
+            }
         }
     }
 
@@ -121,6 +129,8 @@ export default class Apricity {
             "4": false, "5": false, "6": false
         };
 
+        week = this._singleMatcher(latest, week);
+
         if (latest.indexOf("*") > -1) {
             week = this._starMatcher(latest, week);
         }
@@ -137,8 +147,15 @@ export default class Apricity {
 
     }
 
+    _singleMatcher(latest, target) {
+        if (target.hasOwnProperty(latest)) {
+            target[latest] = true;
+        }
+        return target;
+    }
+
     _starMatcher(latest, target) {
-        for (let i = 0; i <= Object.keys(target).length; i++) {
+        for (let i = 0; i < Object.keys(target).length; i++) {
             target[i] = true;
         }
         return target;
@@ -181,7 +198,6 @@ export default class Apricity {
                 'THU': 4, 'FRI': 5, 'SAT': 6
             }
         }
-
     }
 
 }

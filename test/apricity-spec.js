@@ -24,7 +24,9 @@ describe("apricitySpec", () => {
 
     });
 
-    xit("should be able to fetch a record", () => {
+    // Should be able to save a record.
+
+    it("should be able to fetch a record", () => {
         const c1 = new Apricity("* * * * *");
         let v1 = 0;
         let r1 = c1.getRule(v1);
