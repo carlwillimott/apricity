@@ -4,6 +4,7 @@ export default class Apricity {
         this._id = 0;
         this._rules = [];
         this._master = null;
+        this._refs = this._getRefs();
 
         if (rule) {
             this.addRule(rule);
@@ -114,10 +115,10 @@ export default class Apricity {
     }
 
     _calculateWeek(current, latest) {
-        // 1 - Mon, 2 - Tue, 3 - Wed, 4 - Thu, 5 - Fri, 6 - Sat, 7 - Sun
+        // 0 - Sun, 1 - Mon, 2 - Tue, 3 - Wed, 4 - Thu, 5 - Fri, 6 - Sat
         let week = current || {
-            "1": false, "2": false, "3": false, "4": false,
-            "5": false, "6": false, "7": false
+            "0": false, "1": false, "2": false, "3": false,
+            "4": false, "5": false, "6": false
         };
 
         if (latest.indexOf("*") > -1) {
@@ -137,7 +138,7 @@ export default class Apricity {
     }
 
     _starMatcher(latest, target) {
-        for (let i = 1; i <= Object.keys(target).length; i++) {
+        for (let i = 0; i <= Object.keys(target).length; i++) {
             target[i] = true;
         }
         return target;
@@ -163,6 +164,24 @@ export default class Apricity {
             }
         }
         return target;
+    }
+
+    /**
+     * Internal reference function for text based representations of values.
+    **/
+    _getRefs() {
+        return {
+            'month': {
+                'JAN': 1, 'FEB': 2, 'MAR': 3, 'APR': 4,
+                'MAY': 5, 'JUN': 6, 'JUL': 7, 'AUG': 8,
+                'SEP': 9, 'OCT': 10, 'NOV': 11, 'DEC': 12
+            },
+            'week': {
+                'SUN': 0, 'MON': 1, 'TUE': 2, 'WED': 3,
+                'THU': 4, 'FRI': 5, 'SAT': 6
+            }
+        }
+
     }
 
 }

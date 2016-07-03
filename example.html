@@ -6,8 +6,10 @@
 		<script>
 			window.onload = function() {
 				var cron = new Apricity("* * * * 1-2");
-				cron.addRule("* * * * 6-7");
-                cron.addRule("* * * * 3,5");
+				cron.addRule("* * * * 5-6");
+                cron.addRule("* * * * 1,2,3");
+                console.log(cron.getRule(0));
+                console.log(cron.getRule(1));
                 console.log(cron.getRule(2));
 				console.log(cron.getMaster());
 			}
